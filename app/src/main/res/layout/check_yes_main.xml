@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparant"
+    android:id="@+id/background_yes">
+
+    <RelativeLayout
+        android:layout_width="280dp"
+        android:layout_height="380dp"
+        android:id="@+id/isi_check_layout"
+        android:background="@drawable/rounded_corner_blue"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="coba coba cobasfrgfesaca coba coba coba coba coba coba coba coba coba"
+            android:textColor="@android:color/black"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:textSize="17sp"
+            android:id="@+id/txt_detail_check_email"
+            android:layout_marginTop="35dp"
+            android:gravity="start"/>
+
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/rounded_blue"
+            android:text="OK"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/btn_validasi_checked"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

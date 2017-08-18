@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Bandung Digital Valley</string>
+    <string name="register">Register</string>
+    <string name="ok">OK!</string>
+    <string name="detail_registered">kamu telah menjadi member di Bandung Digital Valley! kamu berhak mendapatkan free Wifi, free Co-Working Space, dan free coffe. Yuk langsung aja dateng ke Bandung Digital Valley dan nikmati berbagai fasilitasnya</string>
+    <string name="detail_notRegistered">Email kamu belum terdaftar menjadi member Bandung Digital Valley. lakukan registrasi member terlebih dahulu untuk menikmati berbagai fasilitas yang ada di BDV.</string>
+    <string name="bdv_membership">Membership ditentukan dari kelengkapan data dan kesesuaian skill. BDV mengkhususkan diri untuk penggiat digital kreatif mulai dari mahasiswa, komunitas, freelancer, dan praktisi IT, serta startups. BDV berhak menolak registrasi ulang dari user yang tidak memenuhi kriteria diatas.</string>
+    <string-array name="keahlian_array">
+        <item>Web Development</item>
+        <item>Graphic Design</item>
+        <item>Digital Marketing</item>
+        <item>Game Develop</item>
+        <item>Mobile Develop</item>
+        <item>IT Programmer</item>
+        <item>IT Business</item>
+        <item>Other</item>
+    </string-array>
+    <string name="spinner_awal">Pilih Keahlian</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
