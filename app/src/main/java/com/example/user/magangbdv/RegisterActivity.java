@@ -2,6 +2,7 @@ package com.example.user.magangbdv;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
@@ -64,17 +65,11 @@ public class RegisterActivity extends AppCompatActivity {
     //variabel button submit
     Button btnSubmitRegister;
 
-    //variabel layout
-    LinearLayout layoutRegister;
-    RelativeLayout layoutCompleted;
 
     /*
     inisialisasi variabel yang berada di form tersebut
      */
     private void inisialisasiForm(){
-        layoutRegister = (LinearLayout)findViewById(R.id.background_register);
-        layoutCompleted = (RelativeLayout)findViewById(R.id.completed_register);
-        layoutCompleted.setVisibility(View.GONE);
 
         //yang pertama muncul adalah form nama,email,pass, dan confirm pass
         formNama = (EditText)findViewById(R.id.edt_nama);
@@ -309,9 +304,9 @@ public class RegisterActivity extends AppCompatActivity {
         //input member ke API
 
         //pegi ke terimakasih
-        layoutRegister.setVisibility(View.GONE);
-        layoutCompleted.setVisibility(View.VISIBLE);
-
+        Intent intent = new Intent(getApplicationContext(),CompletedRegisterActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 
@@ -324,7 +319,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         Snackbar.make(view,isi, BaseTransientBottomBar.LENGTH_SHORT)
                 .setAction("Action",null).show();
-
     }
 
     /*
