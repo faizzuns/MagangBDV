@@ -20,18 +20,28 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.magangbdv.data.Date;
 import com.example.user.magangbdv.data.Member;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class RegisterActivity extends AppCompatActivity {
+
+    private final String URL_ROOT = "http://member.bandungdigitalvalley.com/";
 
     //variabel form
     EditText formNama
@@ -211,7 +221,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
@@ -297,17 +306,78 @@ public class RegisterActivity extends AppCompatActivity {
         String hasilLinkedIn = formLinkedIn.getText().toString();
         String hasiFacebook = formFacebook.getText().toString();
 
-        //encrypt password
-
         Member member = new Member(hasilNama,hasilEmail,hasilPassword,hasilGender,hasilTanggalLahir,hasilKota,hasilNomorHandphone,hasilProfesi,hasilNamaPerusahaan,hasilKeahlian,hasilInstagram,hasiFacebook,hasilLinkedIn);
 
         //input member ke API
+        uploadToServer(member);
 
         //pegi ke terimakasih
         Intent intent = new Intent(getApplicationContext(),CompletedRegisterActivity.class);
         startActivity(intent);
         finish();
 
+    }
+
+    private void uploadToServer(Member member) {
+        //Here we will handle the http request to insert user to mysql db
+        //Creating a RestAdapter
+        RestAdapter adapter = new RestAdapter.Builder()
+                .setEndpoint(URL_ROOT) //Setting the Root URL
+                .build(); //Finally building the adapter
+
+        //Creating object for our interface
+        RegisterAPI api = adapter.create(RegisterAPI.class);
+
+        //Defining the method insertuser of our interface
+        api.insertUser(
+
+                //Passing the values by getting it from editTexts
+                member.getNama(),
+                member.getEmail(),
+                member.getPassword(),
+                member.getGender(),
+                member.getTanggalLahir().toString(),
+                member.getKota(),
+                member.getNomorHandphone(),
+                member.getProfesi(),
+                member.getNama(),
+                member.getKeahlian(),
+                member.getInstagram(),
+                member.getFacebook(),
+                member.getLinkedin(),
+
+                //Creating an anonymous callback
+                new Callback<Response>() {
+                    @Override
+                    public void success(Response result, Response response) {
+                        //On success we will read the server's output using bufferedreader
+                        //Creating a bufferedreader object
+                        BufferedReader reader;
+
+                        //An string to store output from the server
+                        String output = "";
+
+                        try {
+                            //Initializing buffered reader
+                            reader = new BufferedReader(new InputStreamReader(result.getBody().in()));
+
+                            //Reading the output in the string
+                            output = reader.readLine();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(getApplicationContext(), output, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(getApplicationContext(),
+                                getResources().getString(R.string.upload_data_error),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 
     /*

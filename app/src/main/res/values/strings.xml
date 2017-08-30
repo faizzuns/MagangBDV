@@ -17,7 +17,7 @@
     </string-array>
     <string name="spinner_awal">Pilih Keahlian</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="completed_register">Selamat anda berhasil menjadi Member di Bandung Digital Valley. email verifikasi akan masuk ke email anda sekitar 5 menit.</string>
+    <string name="upload_data_error">Gagal mengunggah data</string>
 </resources>
