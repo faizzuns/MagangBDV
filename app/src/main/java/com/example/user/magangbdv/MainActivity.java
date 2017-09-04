@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     //variabel untuk mengecek apakah layout checked Email sudah tampil
     boolean cekCheckedEmail = false;
 
+    private EditText edtCheckEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //menyembunyikan checkUI
         setViewCheckedEmail(View.GONE,false);
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 //dia berhak mendapatkan fasilitas BDV, jika tidak maka memunculkan
                 //arahan untuk registrasi member BDV
 
-                EditText edtCheckEmail = (EditText)findViewById(R.id.check_email);
+                edtCheckEmail = (EditText)findViewById(R.id.check_email);
                 if (TextUtils.isEmpty(edtCheckEmail.getText())){
                     Snackbar.make(view,"Email doesn't exist", BaseTransientBottomBar.LENGTH_SHORT)
                             .setAction("Action",null).show();
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            
+
         });
 
     }
@@ -79,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
     metode yang mengecek apakah email yang di input termasuk member BDV
      */
     private void checkRegistered(String email) {
-
-        boolean hasil = false;
-
         EmailAPI service = MemberHelper.client().create(EmailAPI.class);
         Call<MemberModel> call = service.getMahasiswaList(email);
         call.enqueue(new Callback<MemberModel>() {
@@ -128,7 +125,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (!cekEmailRegistered){
+                        Bundle args = new Bundle();
+                        args.putString("email", edtCheckEmail.getText().toString());
+
                         Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
+                        intent.putExtras(args);
                         startActivity(intent);
                     }
                     setViewCheckedEmail(View.GONE,cekEmailRegistered);
