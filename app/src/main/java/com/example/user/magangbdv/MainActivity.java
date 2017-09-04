@@ -16,8 +16,16 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.user.magangbdv.data.MemberModel;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,15 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
                     if (isEmailValid(email)){
                         //check apakah email sudah terdaftar member atau belum
-                        boolean cekSudahTerdaftar = checkRegistered(email);
+                        checkRegistered(email);
 
-                        //setViewsetelah di cek emailnya
-                        setViewCheckedEmail(View.VISIBLE,cekSudahTerdaftar);
                     }else{
                         Snackbar.make(view,"Email doesn't valid", BaseTransientBottomBar.LENGTH_SHORT)
                                 .setAction("Action",null).show();
                     }
-
                 }
             }
             
@@ -73,14 +78,32 @@ public class MainActivity extends AppCompatActivity {
     /*
     metode yang mengecek apakah email yang di input termasuk member BDV
      */
-    private boolean checkRegistered(String email) {
+    private void checkRegistered(String email) {
 
-        if (email.equals("benar@gmail.com")){
-            return true;
-        }
+        boolean hasil = false;
 
-        return false;
+        EmailAPI service = MemberHelper.client().create(EmailAPI.class);
+        Call<MemberModel> call = service.getMahasiswaList(email);
+        call.enqueue(new Callback<MemberModel>() {
+            @Override
+            public void onResponse(Call<MemberModel> call, Response<MemberModel> response) {
+                MemberModel member = response.body();
+
+                if (member.getStatusCode().equals("error")){
+                    setViewCheckedEmail(View.VISIBLE,false);
+                }else{
+                    setViewCheckedEmail(View.VISIBLE,true);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MemberModel> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "can't load data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
+
 
     /*
     metode ini dipanggil untuk menset tampilan
