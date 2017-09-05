@@ -126,6 +126,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey("email")) {
             formEmail.setText(getIntent().getExtras().getString("email"));
+            Log.d("TEST", getIntent().getExtras().getString("email"));
         }
 
         //ketika confirm password terpencet, tanggal lahir muncul

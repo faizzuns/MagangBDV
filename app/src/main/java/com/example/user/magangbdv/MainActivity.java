@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     boolean cekCheckedEmail = false;
 
     private EditText edtCheckEmail;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action",null).show();
                 }else{
                     //get email from user
-                    String email = edtCheckEmail.getText().toString();
+                    email = edtCheckEmail.getText().toString();
 
                     edtCheckEmail.setText("");
 
@@ -126,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     if (!cekEmailRegistered){
                         Bundle args = new Bundle();
-                        args.putString("email", edtCheckEmail.getText().toString());
+                        args.putString("email", email);
+                        Log.d("TEST-A", email);
 
                         Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
                         intent.putExtras(args);
