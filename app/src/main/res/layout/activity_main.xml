@@ -10,5 +10,4 @@
 
     <include layout="@layout/check_yes_main"/>
 
-
 </FrameLayout>

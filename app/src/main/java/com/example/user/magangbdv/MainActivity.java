@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,12 +33,13 @@ public class MainActivity extends AppCompatActivity {
     //variabel untuk mengecek apakah layout checked Email sudah tampil
     boolean cekCheckedEmail = false;
 
+    private EditText edtCheckEmail;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //menyembunyikan checkUI
         setViewCheckedEmail(View.GONE,false);
 
@@ -50,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 //dia berhak mendapatkan fasilitas BDV, jika tidak maka memunculkan
                 //arahan untuk registrasi member BDV
 
-                EditText edtCheckEmail = (EditText)findViewById(R.id.check_email);
+                edtCheckEmail = (EditText)findViewById(R.id.check_email);
                 if (TextUtils.isEmpty(edtCheckEmail.getText())){
                     Snackbar.make(view,"Email doesn't exist", BaseTransientBottomBar.LENGTH_SHORT)
                             .setAction("Action",null).show();
                 }else{
                     //get email from user
-                    String email = edtCheckEmail.getText().toString();
+                    email = edtCheckEmail.getText().toString();
 
                     edtCheckEmail.setText("");
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            
+
         });
 
     }
@@ -79,9 +81,6 @@ public class MainActivity extends AppCompatActivity {
     metode yang mengecek apakah email yang di input termasuk member BDV
      */
     private void checkRegistered(String email) {
-
-        boolean hasil = false;
-
         EmailAPI service = MemberHelper.client().create(EmailAPI.class);
         Call<MemberModel> call = service.getMahasiswaList(email);
         call.enqueue(new Callback<MemberModel>() {
@@ -128,7 +127,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (!cekEmailRegistered){
+                        Bundle args = new Bundle();
+                        args.putString("email", email);
+                        Log.d("TEST-A", email);
+
                         Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
+                        intent.putExtras(args);
                         startActivity(intent);
                     }
                     setViewCheckedEmail(View.GONE,cekEmailRegistered);
