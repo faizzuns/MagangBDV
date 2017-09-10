@@ -2,7 +2,10 @@ package com.example.user.magangbdv;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,9 +15,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtCheckEmail;
     private String email;
 
+    private ProgressBar progressBar;
+
+    private Button btnCheckEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
         //menyembunyikan checkUI
         setViewCheckedEmail(View.GONE,false);
 
+        progressBar = (ProgressBar)findViewById(R.id.progress);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+
         //inisialisasi dan eksekusi Button check Email
-        Button btnCheckEmail = (Button)findViewById(R.id.btn_check);
+        btnCheckEmail = (Button)findViewById(R.id.btn_check);
         btnCheckEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
                 //dia berhak mendapatkan fasilitas BDV, jika tidak maka memunculkan
                 //arahan untuk registrasi member BDV
 
+
                 edtCheckEmail = (EditText)findViewById(R.id.check_email);
+                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.hideSoftInputFromWindow(edtCheckEmail.getWindowToken(), 0);
                 if (TextUtils.isEmpty(edtCheckEmail.getText())){
                     Snackbar.make(view,"Email doesn't exist", BaseTransientBottomBar.LENGTH_SHORT)
                             .setAction("Action",null).show();
@@ -64,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if (isEmailValid(email)){
                         //check apakah email sudah terdaftar member atau belum
+                        progressBar.setVisibility(View.VISIBLE);
+                        btnCheckEmail.setVisibility(View.GONE);
                         checkRegistered(email);
 
                     }else{
@@ -74,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+        edtCheckEmail = (EditText)findViewById(R.id.check_email);
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(edtCheckEmail.getWindowToken(), 0);
 
     }
 
@@ -88,16 +109,22 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<MemberModel> call, Response<MemberModel> response) {
                 MemberModel member = response.body();
 
+                progressBar.setVisibility(View.GONE);
+                btnCheckEmail.setVisibility(View.VISIBLE);
+
                 if (member.getStatusCode().equals("error")){
                     setViewCheckedEmail(View.VISIBLE,false);
                 }else{
                     setViewCheckedEmail(View.VISIBLE,true);
                 }
+
             }
 
             @Override
             public void onFailure(Call<MemberModel> call, Throwable t) {
                 Toast.makeText(MainActivity.this, "can't load data", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                btnCheckEmail.setVisibility(View.VISIBLE);
             }
         });
 

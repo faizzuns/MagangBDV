@@ -16,15 +16,12 @@ import android.widget.ImageView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        ImageView view = (ImageView) findViewById(R.id.img);
-        Animation startAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blinking_animation);
-        view.startAnimation(startAnimation);
 
         new Handler().postDelayed(new Runnable() {
 

@@ -323,9 +323,10 @@
     <Button
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:background="@drawable/rounded_blue"
+        android:background="@drawable/ripple_just_blue"
         android:textColor="@android:color/white"
         android:text="Submit"
+        android:textAllCaps="false"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"

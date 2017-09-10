@@ -16,10 +16,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.YellowStatusBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimaryDark">@color/yellow</item>
-    </style>
-
 
     <style name="MyDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>

@@ -5,14 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.magangbdv.SplashScreenActivity"
-    android:background="@android:color/white">
+    android:background="@drawable/splash_screen">
 
-    <ImageView
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:scaleType="fitXY"
-        android:id="@+id/img"
-        android:src="@drawable/bdv_logo"
-        android:layout_centerInParent="true"/>
+
 
 </RelativeLayout>

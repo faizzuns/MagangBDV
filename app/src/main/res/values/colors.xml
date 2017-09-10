@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#2ca8e0</color>
-    <color name="colorPrimaryDark">#2ca8e0</color>
+    <color name="colorPrimaryDark">#239fd2</color>
+    <color name="bdvMoreDark">#2293c1</color>
     <color name="colorAccent">#FF4081</color>
     <color name="transparant">#75000000</color>
     <color name="yellow">#fecb19</color>
+    <color name="gray_bdv">#6D6F71</color>
+    <color name="hijaubdv">#D5D62F</color>
+    <color name="teal">#009688</color>
+    <color name="latar">#27aae1</color>
+    <color name="hitam_trans">#CC000000</color>
 </resources>

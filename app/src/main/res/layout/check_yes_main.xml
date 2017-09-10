@@ -31,9 +31,10 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/rounded_blue"
-            android:text="OK"
-            android:textSize="20sp"
+            android:background="@drawable/ripple_just_blue"
+            android:text="Ok"
+            android:textAllCaps="false"
+            android:textSize="21sp"
             android:textColor="@android:color/white"
             android:id="@+id/btn_validasi_checked"/>
 

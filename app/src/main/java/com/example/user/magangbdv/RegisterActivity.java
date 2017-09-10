@@ -2,6 +2,7 @@ package com.example.user.magangbdv;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -235,11 +237,12 @@ public class RegisterActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Register BDV Membership");
+        getSupportActionBar().setTitle("Register");
 
         //inisialisasi form
         inisialisasiForm();
 
+        btnSubmitRegister.requestFocus();
 
 
         //ketika button register di klik
