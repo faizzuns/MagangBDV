@@ -113,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+        method untuk mengecek apakah email ada di database lokak atau tidak, agar nanti bisa langsung keluar tulisan emailnya
+         */
     private void checkDatabaseEmal(EditText edtCheckEmail) {
         EmailData data = new Select()
                 .from(EmailData.class)
