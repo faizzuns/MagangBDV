@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
@@ -32,7 +33,12 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.google.code.gson:gson:2.7'
+    compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.github.Raizlabs.DBFlow:dbflow-core:4.0.0-beta5'
+    compile 'com.github.Raizlabs.DBFlow:dbflow:4.0.0-beta5'
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.github.Raizlabs.DBFlow:dbflow-processor:4.0.0-beta5'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

@@ -13,6 +13,9 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     // Splash screen timer
@@ -22,6 +25,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        FlowManager.init(new FlowConfig.Builder(this).build());
 
         new Handler().postDelayed(new Runnable() {
 

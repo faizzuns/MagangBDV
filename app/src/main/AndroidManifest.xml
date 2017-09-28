@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/bulatbdv"
+        android:icon="@drawable/bdv_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/bulatbdv"
+        android:roundIcon="@drawable/bdv_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -19,12 +19,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".CompletedRegisterActivity"></activity>
+        <activity android:name=".CompletedRegisterActivity" />
+        <activity android:name=".NewsEventActivity" />
+        <activity android:name=".ProfilActivity"></activity>
     </application>
 
 </manifest>

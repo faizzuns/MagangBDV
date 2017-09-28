@@ -24,7 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.magangbdv.data.EmailData;
+import com.example.user.magangbdv.data.EmailData_Table;
 import com.example.user.magangbdv.data.MemberModel;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnCheckEmail;
 
+    public static MemberModel member;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.progress);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+
+        TextView txtSign = (TextView)findViewById(R.id.txt_signup);
+        txtSign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //inisialisasi dan eksekusi Button check Email
         btnCheckEmail = (Button)findViewById(R.id.btn_check);
@@ -93,30 +107,53 @@ public class MainActivity extends AppCompatActivity {
         });
 
         edtCheckEmail = (EditText)findViewById(R.id.check_email);
+        checkDatabaseEmal(edtCheckEmail);
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(edtCheckEmail.getWindowToken(), 0);
 
     }
 
+    private void checkDatabaseEmal(EditText edtCheckEmail) {
+        EmailData data = new Select()
+                .from(EmailData.class)
+                .where(EmailData_Table.id.is(1))
+                .querySingle();
+        if (data != null){
+            edtCheckEmail.setText(data.getEmail());
+        }
+    }
+
     /*
     metode yang mengecek apakah email yang di input termasuk member BDV
      */
-    private void checkRegistered(String email) {
+    private void checkRegistered(final String email) {
         EmailAPI service = MemberHelper.client().create(EmailAPI.class);
-        Call<MemberModel> call = service.getMahasiswaList(email);
+        Call<MemberModel> call = service.getMahasiswaList("full",email);
+        final Intent intent = new Intent(getApplicationContext(), NewsEventActivity.class);
         call.enqueue(new Callback<MemberModel>() {
             @Override
             public void onResponse(Call<MemberModel> call, Response<MemberModel> response) {
-                MemberModel member = response.body();
+                member = response.body();
+
+                if (member.getStatusCode().equals("error")){
+                    setViewCheckedEmail(View.VISIBLE,false);
+                }/*else if (member.getUserList().get(0).getActive().equals("1")){
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(MainActivity.this, "email anda belum terverifikasi", Toast.LENGTH_SHORT).show();
+                }*/else{
+                    intent.putExtra("emailMember",email);
+                    startActivity(intent);
+                    progressBar.setVisibility(View.GONE);
+
+                    EmailData data = new EmailData();
+                    data.setId(1);
+                    data.setEmail(email);
+                    data.save();
+                }
 
                 progressBar.setVisibility(View.GONE);
                 btnCheckEmail.setVisibility(View.VISIBLE);
 
-                if (member.getStatusCode().equals("error")){
-                    setViewCheckedEmail(View.VISIBLE,false);
-                }else{
-                    setViewCheckedEmail(View.VISIBLE,true);
-                }
 
             }
 

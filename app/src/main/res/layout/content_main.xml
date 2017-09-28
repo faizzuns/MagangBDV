@@ -25,7 +25,7 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_corner_blue"
-        android:hint="Check your email"
+        android:hint="Email"
         android:textColor="@android:color/black"
         android:inputType="textEmailAddress"
         android:layout_gravity="center_horizontal"
@@ -57,7 +57,29 @@
             android:minWidth="40dp" />
     </RelativeLayout>
 
-
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="Don't have account?"
+            android:id="@+id/tx"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:layout_toRightOf="@+id/tx"
+            android:text="@string/sign_up"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:id="@+id/txt_signup"/>
+    </RelativeLayout>
 
 
 </LinearLayout>

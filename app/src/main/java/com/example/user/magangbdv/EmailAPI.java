@@ -13,6 +13,6 @@ import retrofit2.http.Query;
 public interface EmailAPI {
 
     @GET("/API_datauser.php?")
-    Call<MemberModel> getMahasiswaList(@Query("email") String email);
+    Call<MemberModel> getMahasiswaList(@Query("group") String group,@Query("email") String email);
 
 }
