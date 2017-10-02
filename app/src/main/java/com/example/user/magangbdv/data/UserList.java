@@ -50,7 +50,7 @@ public class UserList {
     private String hash;
     @SerializedName("active")
     @Expose
-    private String active;
+    private Integer active;
     @SerializedName("foto")
     @Expose
     private String foto;
@@ -167,14 +167,6 @@ public class UserList {
         this.hash = hash;
     }
 
-    public String getActive() {
-        return active;
-    }
-
-    public void setActive(String active) {
-        this.active = active;
-    }
-
     public String getFoto() {
         return foto;
     }
@@ -183,4 +175,11 @@ public class UserList {
         this.foto = foto;
     }
 
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
 }
