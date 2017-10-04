@@ -138,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<MemberModel> call, Response<MemberModel> response) {
                 member = response.body();
 
-                Log.d("checkEmail", "onResponse: "+member.getUserList().get(0).getActive());
-
                 if (member.getStatusCode().equals("error")){
                     setViewCheckedEmail(View.VISIBLE,false);
                 }else if (member.getUserList().get(0).getActive() == 0){
